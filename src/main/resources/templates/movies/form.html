@@ -9,25 +9,26 @@
     <h1>Cadastro de filme</h1>
 
     <form method="post" action="/movies">
-        <label for="name">Nome:</label>
-        <input id="name" name="name"/>
+        <div>
+            <label for="name">Nome:</label>
+            <input id="name" name="name">
+        </div>
 
-        <br/>
+        <div>
+            <label for="duration">Duração (em minutos):</label>
+            <input id="duration" name="duration">
+        </div>
 
-        <label for="duration">Duração em minutos:</label>
-        <input id="duration" name="duration"/>
+        <div>
+            <label for="year">Ano de lançamento:</label>
+            <input id="year" name="year">
+        </div>
 
-        <br/>
+        <div>
+            <label for="category">Gênero:</label>
+            <input id="category" name="category">
+        </div>
 
-        <label for="year">Ano de lançamento:</label>
-        <input id="year" name="year"/>
-
-        <br/>
-
-        <label for="category">Categoria de filme:</label>
-        <input id="category" name="category"/>
-
-        <br/>
 
         <button type="submit">Cadastrar</button>
     </form>
