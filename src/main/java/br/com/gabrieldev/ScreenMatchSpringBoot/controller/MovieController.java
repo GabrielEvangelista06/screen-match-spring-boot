@@ -2,6 +2,8 @@ package br.com.gabrieldev.ScreenMatchSpringBoot.controller;
 
 import br.com.gabrieldev.ScreenMatchSpringBoot.domain.movie.Movie;
 import br.com.gabrieldev.ScreenMatchSpringBoot.domain.movie.MovieData;
+import br.com.gabrieldev.ScreenMatchSpringBoot.domain.movie.MovieRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,7 +17,8 @@ import java.util.List;
 @RequestMapping("/movies")
 public class MovieController {
 
-    private List<Movie> movies = new ArrayList<>();
+    @Autowired
+    private MovieRepository repository;
 
     @GetMapping("/form")
     public String loadMovieForm() {
@@ -24,7 +27,7 @@ public class MovieController {
 
     @GetMapping
     public String loadListMovies(Model model) {
-        model.addAttribute("movies", movies);
+        model.addAttribute("movies", repository.findAll());
 
         return "movies/list";
     }
@@ -32,7 +35,7 @@ public class MovieController {
     @PostMapping
     public String createMovie(MovieData movieData) {
         Movie movie = new Movie(movieData);
-        movies.add(movie);
+        repository.save(movie);
 
         return "redirect:/movies";
     }
