@@ -3,13 +3,12 @@ package br.com.gabrieldev.ScreenMatchSpringBoot.controller;
 import br.com.gabrieldev.ScreenMatchSpringBoot.domain.movie.Movie;
 import br.com.gabrieldev.ScreenMatchSpringBoot.domain.movie.MovieData;
 import br.com.gabrieldev.ScreenMatchSpringBoot.domain.movie.MovieRepository;
+import br.com.gabrieldev.ScreenMatchSpringBoot.domain.movie.MovieUpdateData;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,7 +21,12 @@ public class MovieController {
     private MovieRepository repository;
 
     @GetMapping("/form")
-    public String loadMovieForm() {
+    public String loadMovieForm(Long id, Model model) {
+        if (id != null) {
+            Movie movie = repository.getReferenceById(id);
+            model.addAttribute("movie", movie);
+        }
+
         return "movies/form";
     }
 
@@ -34,6 +38,7 @@ public class MovieController {
     }
 
     @PostMapping
+    @Transactional
     public String createMovie(MovieData movieData) {
         Movie movie = new Movie(movieData);
         repository.save(movie);
@@ -41,10 +46,22 @@ public class MovieController {
         return "redirect:/movies";
     }
 
+    @PutMapping
+    @Transactional
+    public String updateMovie(MovieUpdateData movieUpdateData) {
+        Movie movie = repository.getReferenceById(movieUpdateData.id());
+
+        movie.updateRecord(movieUpdateData);
+
+        return "redirect:/movies";
+    }
+
     @DeleteMapping
+    @Transactional
     public String deleteMovie(Long id) {
         repository.deleteById(id);
 
         return "redirect:/movies";
     }
+
 }

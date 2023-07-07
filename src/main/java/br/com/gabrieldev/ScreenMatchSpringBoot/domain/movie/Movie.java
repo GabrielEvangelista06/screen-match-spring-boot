@@ -44,6 +44,13 @@ public class Movie {
         return category;
     }
 
+    public void updateRecord(MovieUpdateData movieUpdateData) {
+        this.name = movieUpdateData.name();
+        this.durationInMinutes = movieUpdateData.duration();
+        this.releaseYear = movieUpdateData.year();
+        this.category = movieUpdateData.category();
+    }
+
     @Override
     public String toString() {
         return "Movie{" +
