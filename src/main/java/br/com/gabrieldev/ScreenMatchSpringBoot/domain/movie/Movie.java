@@ -1,6 +1,13 @@
 package br.com.gabrieldev.ScreenMatchSpringBoot.domain.movie;
 
+import jakarta.persistence.*;
+
+@Entity
+@Table(name = "movies")
 public class Movie {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
     private String name;
     private Integer durationInMinutes;
     private Integer releaseYear;
@@ -11,6 +18,14 @@ public class Movie {
         this.durationInMinutes = movieData.duration();
         this.releaseYear = movieData.year();
         this.category = movieData.category();
+    }
+
+    public Movie() {
+
+    }
+
+    public Long getId() {
+        return id;
     }
 
     public String getName() {
