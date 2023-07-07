@@ -233,7 +233,7 @@ label {
     color: var(--azul-medio);
 }
 
-input[type="submit"] {
+button[type="submit"] {
     background-color: var(--azul-escuro);
     color: white;
     border: none;
