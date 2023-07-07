@@ -18,6 +18,7 @@
             <th>DURAÇÃO EM MINUTOS</th>
             <th>ANO DE LANÇAMENTO</th>
             <th>CATEGORIA</th>
+            <th>Ações</th>
         </tr>
         </thead>
         <tbody>
@@ -26,6 +27,13 @@
             <td th:text="${movie.durationInMinutes}"></td>
             <td th:text="${movie.releaseYear}"></td>
             <td th:text="${movie.category}"></td>
+            <td>
+                <form action="/movies" method="post">
+                    <input type="hidden" name="_method" value="delete">
+                    <input type="hidden" name="id" th:value="${movie.id}">
+                    <button type="submit">Excluir</button>
+                </form>
+            </td>
         </tr>
         </tbody>
     </table>
